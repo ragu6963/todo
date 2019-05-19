@@ -1,0 +1,93 @@
+<div class="nav-wrap">
+    <div class="btn-wrap right">
+        <button id="post_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="수정 완료">
+            <i class="fas fa-check"></i>
+    </div>
+</div>
+<hr width="95%">
+<div class="form-wrap">
+    <form id="create_form" class="form" action="{%url 'update'%}" method="post">
+        {%csrf_token%}
+        <input type="hidden" name="post_id" value="{{post.id}}">
+        {%if post.end_at == null%}
+        <div id="calendar_plus_btn" class="calendar-btn"><i class="fas fa-calendar-plus"></i></div>
+        <section id="calendar"></section>
+        {%else%}
+        <div id="calendar_plus_btn" class="calendar-btn" style="display:none"><i class="fas fa-calendar-plus"></i></div>
+        <section id="calendar">
+            <div class="col-3" style="padding:0px;">
+                <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                    <div id="calendar_minus_btn" class="calendar-btn"><i class="fas fa-calendar-times"></i></div>
+                    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                        <span class="date-btn"><i class="fa fa-calendar calendar"></i></span>
+                        <input type="text" id="end_at" name="end_at" class="form-date" data-target="#datetimepicker"
+                            value="{{post.end_at|date:'Y-m-d'}}">
+                    </div>
+                </div>
+            </div>
+        </section>
+        {%endif%}
+        <div>
+            <select name="priority" class="select-star">
+                {%if post.priority == 1%}
+                <option class="option-star" value="1" selected>&#x2605;&#x2606;&#x2606;</option>
+                <option class="option-star" value="2">&#x2605;&#x2605;&#x2606;</option>
+                <option class="option-star" value="3">&#x2605;&#x2605;&#x2605;</option>
+                {%elif post.priority == 2%}
+                <option class="option-star" value="1">&#x2605;&#x2606;&#x2606;</option>
+                <option class="option-star" value="2" selected>&#x2605;&#x2605;&#x2606;</option>
+                <option class="option-star" value="3">&#x2605;&#x2605;&#x2605;</option>
+                {%elif post.priority == 3%}
+                <option class="option-star" value="1">&#x2605;&#x2606;&#x2606;</option>
+                <option class="option-star" value="2">&#x2605;&#x2605;&#x2606;</option>
+                <option class="option-star" value="3" selected>&#x2605;&#x2605;&#x2605;</option>
+                {%endif%}
+            </select>
+        </div>
+        <input type="text" id="title" name="title" class="title" value="{{post.title}}">
+        <textarea id="content" name="content" class="content">{{post.content}}</textarea>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    }) 
+    var date = "{{post.end_at|date:'Y-m-d'}}";
+    $('#datetimepicker').datetimepicker({
+        defaultDate: date,
+        format: "YYYY-MM-DD",
+    });
+    $('#calendar_minus_btn').click(function () {
+        $.ajax({
+            success: function (response) {
+                $('#calendar').html("");
+                $('#calendar_plus_btn').show();
+            }
+        })
+    })
+    $('#calendar_plus_btn').click(function () {
+        $.ajax({
+            url: "{%url 'calendar'%}",
+            success: function (response) {
+                $('#calendar_plus_btn').hide();
+                $('#calendar').html(response);
+            }
+        })
+    })
+    $("#post_btn").click(function () {
+        var check = true;
+        if ($("#title").val() == "") {
+            check = false;
+            $("#title").focus();
+            $("#title").attr('placeholder', "제목을 입력해주세요")
+        }
+        if ($('#datetimepicker').datetimepicker('date') == null) {
+            alert("마감날짜를 입력해주세요");
+            check = false;
+        }
+        if (check) {
+            $('#create_form').submit();
+        }
+    }) 
+</script>

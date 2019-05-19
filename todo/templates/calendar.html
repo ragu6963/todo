@@ -1,0 +1,29 @@
+<div class="col-3" style="padding:0px;">
+    <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+        <div id="calendar_minus_btn" class="calendar-btn" data-toggle="tooltip" data-placement="bottom"
+            title="마감날짜 설정 해제"><i class="fas fa-calendar-times"></i></div>
+        <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+            <span class="date-btn"><i class="fa fa-calendar calendar"></i></span>
+            <input type="text" id="end_at" name="end_at" class="form-date" data-target="#datetimepicker">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $('#datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD',
+    }); 
+    $('#calendar_minus_btn').click(function () {
+        $.ajax({
+            success: function (response) {
+                $('#calendar_minus_btn').tooltip('hide');
+                $('#calendar').html("");
+                $('#end_at').val(null);
+                $('#calendar_plus_btn').show();
+            }
+        })
+    }) 
+</script>

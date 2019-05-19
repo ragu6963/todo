@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+ 
+.icon-btn { 
+    font-size: 1.5em;
+    background-color: transparent !important; 
+    border-color: transparent;
+    border: none;
+    color: black;
+} 
+.btn-wrap{
+    position:absolute;
+    bottom:0px;
+} 
+.left{
+    left:1.5em;
+}
+.right{
+    right:1.5em;
+}
+.logo{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+
+
+
+
+

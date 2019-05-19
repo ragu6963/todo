@@ -1,0 +1,19 @@
+.index-wrap{
+    padding-left:2em;
+    padding-right:2em;
+}
+.index-star{ 
+    font-size: 0.5em;
+    color: red;
+}
+.index-title{ 
+    font-size:1.5em;  
+    margin-bottom:0.25em;
+}
+.index-content{   
+    margin-bottom:0.5em; 
+}
+.index-date{
+    font-size:0.75em;
+    color:gray;
+}

@@ -1,0 +1,23 @@
+*:focus{
+    outline: none;
+}
+.logo{ 
+    font-size:4em; 
+    padding-left:2rem; 
+}
+.menu-wrap { 
+    position: relative; 
+    height: 15vh; 
+} 
+.aside-wrap{
+    height:80vh;
+    overflow:auto;
+}
+.article-wrap { 
+    max-width:75%;
+    height:100vh;
+    overflow:hidden;
+}     
+.checked{
+    color:red;
+}

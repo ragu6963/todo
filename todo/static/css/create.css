@@ -1,0 +1,34 @@
+.form-wrap{ 
+    padding-top:2em;
+    padding-left:3em;
+    padding-right:3em;
+    height: 85vh;   
+    overflow: hidden;
+} 
+.date-btn{ 
+    padding-top: 0.3em;
+    font-size:1.5em;
+    background-color: transparent !important; 
+    border-color: transparent;
+    border: none;
+    color: black;
+}
+.form-date{ 
+    width:auto;
+    padding-left: 0.5em;
+    border:none; 
+    font-weight: bold;
+    font-size:1.7em;
+    color:gray;
+}  
+.calendar-btn{
+    display: inline;
+    font-size:1.5em;
+    color:gray;  
+    font-weight: bold;  
+}
+.calendar{ 
+    font-size: 1.5em;
+    color:gray;
+    font-weight: bold;
+}

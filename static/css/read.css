@@ -1,0 +1,44 @@
+.nav-wrap{ 
+    position: relative; 
+    height: 7vh; 
+    text-align:center;
+}  
+.read-wrap{
+    padding-top:2em;
+    padding-left:3em;
+    padding-right:3em;
+    height: 88vh;   
+    overflow: auto; 
+}   
+.title{ 
+    display: inline-block;
+    font-size:2.5em; 
+    font-weight:bold;  
+    width:100%;
+    height:auto; 
+    padding:0px; 
+    border: 0px;
+}  
+.content{
+    resize:none;  
+    width:100%; 
+    height:auto;
+    border:0px;
+    padding:0px;
+}
+.select-star{
+    -moz-appearance:none; 
+    -webkit-appearance:none;
+    appearance:none;
+    font-size:2em;
+    color:red; 
+    border: none;  
+}
+.option-star{ 
+    color:red;   
+} 
+.d-day{
+    font-size:1.5em;
+    font-weight: bold;
+    color:gray;
+}

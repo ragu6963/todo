@@ -1,0 +1,74 @@
+<div class="nav-wrap">
+    <div class="btn-wrap right">
+        {%if post.confirm == True%}
+        <button id="confirm_btn" class="icon-btn" title="취소" data-toggle="tooltip" data-placement="bottom" title="되돌리기">
+            <i class="fas fa-undo-alt"></i>
+        </button>
+        {%else%}
+        <button id="confirm_btn" class="icon-btn" title="완료" data-toggle="tooltip" data-placement="bottom" title="완료">
+            <i class="fas fa-redo"></i>
+        </button>
+        {%endif%}
+        <button id="update_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="수정">
+            <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button id="delete_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="삭제">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+</div>
+<hr width="95%">
+<div class="read-wrap">
+    <div class="d-day">
+        {%if post.d_day == "만료" %}
+        <i class="fas fa-hourglass-end"></i>
+        {%elif post.d_day == "기한없음"%}
+        <i class="fas fa-infinity"></i>
+        {%else%}
+        {{post.d_day}}
+        {%endif%}
+    </div>
+    <select class="select-star" disabled>
+        <option class="option-star">
+            {%for i in post.priority_range %}&#x2605;{%endfor%}
+        </option>
+    </select>
+    <input type="text" class="title" value="{{post.title}}" readonly>
+    <div class="content">
+        {{post.content|linebreaksbr}}
+    </div>
+</div>
+
+<form id="delete_form" action="{%url 'delete' %}" method="POST">
+    {%csrf_token%}
+    <input type="hidden" name="post_id" value="{{post.id}}">
+</form>
+<form id="confirm_form" action="{%url 'confirm' %}" method="POST">
+    {%csrf_token%}
+    <input type="hidden" name="post_id" value="{{post.id}}">
+</form>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    $('#update_btn').click(function () {
+        $.ajax({
+            url: "{%url 'update'%}",
+            data: { 'post_id': "{{post.id}}" },
+            success: function (response) {
+                $('#update_btn').tooltip('hide');
+                $('#article').html(response);
+            }
+        })
+    })
+    $("#delete_btn").click(function () {
+        var result = confirm("정말 삭제하시겠습니까?")
+        if (result) { 
+            $("#delete_form").submit();
+        }
+    })
+    $('#confirm_btn').click(function () {
+        $("#confirm_form").submit();
+    })
+</script>

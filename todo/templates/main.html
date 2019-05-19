@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %} 
+<section class="d-flex bd-highlight">
+    <section class="bd-highlight" style="width:25%;border-right:1px solid;">
+        <div class="menu-wrap"> 
+            <span class="logo">Note</span>
+            <div class="btn-wrap right">
+                <button id="end_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="마감된 항목">
+                    <i class="fas fa-hourglass-end"></i>
+                </button>
+                <button id="create_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="글쓰기">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button id="sort_btn" class="icon-btn" data-toggle="dropdown" data-placement="bottom" title="정렬">
+                    <i class="fas fa-sort-amount-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a id="all" class="dropdown-item" onclick="index_sort(this.id)">전체 항목</a>
+                    <a id="confirm" class="dropdown-item" onclick="index_sort(this.id)">완료 항목</a>
+                    <a id="un_confirm" class="dropdown-item" onclick="index_sort(this.id)">미완료 항목</a>
+                    <a id="-priority" class="dropdown-item" onclick="index_sort(this.id)">우선순위 정렬 : 높은 항목에서 낮은 항목순으로</a>
+                    <a id="priority" class="dropdown-item" onclick="index_sort(this.id)">우선순위 정렬 : 낮은 항목에서 높은 항목 순으로</a>
+                    <a id="-end_at" class="dropdown-item" onclick="index_sort(this.id)">종료날짜 정렬 : 먼 항목에서 가까운 항목 순으로</a>
+                    <a id="end_at" class="dropdown-item" onclick="index_sort(this.id)">종료날짜 정렬 : 가까운 항목에서 먼 항목 순으로</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <section id="index" class="aside-wrap">
+            <!-- index -->
+            {% include 'index.html' %}
+        </section>
+    </section>
+    <section id="article" class="flex-grow-1 bd-highlight article-wrap">
+        <!-- read and create page-->
+        {% include 'create.html' %}
+    </section>
+    </div>
+    <script>
+        function index_sort(id) {
+            $('#sort_btn').tooltip('hide');
+            $.ajax({
+                url: "{%url 'index'%}",
+                data: {"sort_filter": id},
+                success: function (response) {
+                    $('#index').html(response);
+                }
+            })
+        }
+        $('#end_btn').click(function () {
+            $.ajax({
+                url: "{%url 'index'%}",
+                data: {"sort_filter": "end_post"},
+                success: function (response) {  
+                    $('#index').html(response);
+                }
+            })
+        })
+        $('#create_btn').click(function () {
+            $.ajax({
+                url: "{%url 'create'%}",
+                success: function (response) { 
+                    $('#create_btn').tooltip('hide');
+                    $('#article').html(response);
+                }
+            })
+        })
+        
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="dropdown"]').tooltip();
+        }) 
+    </script>
+    {% endblock %}

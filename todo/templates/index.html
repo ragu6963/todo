@@ -1,0 +1,36 @@
+{%for p in posts%}
+<div class="row no-gutters position-relative index-wrap"> 
+    <div class="col-md-12 position-static">
+        <div class="index-date"> 
+            {%if p.d_day == "만료" %}
+            <i class="fas fa-hourglass-end" style="color: red;"></i>
+            {%elif p.d_day == "기한없음"%}
+            <i class="fas fa-infinity"></i>
+            {%else%}
+            <span style="font-weight:bold;">{{p.d_day}}</span>
+            {%endif%}
+        </div>
+        <div>
+            {%for i in p.priority_range %}  
+            <span class="index-star">&#x2605;</span>  
+            {%endfor%}
+        </div>  
+        <div class="index-title">{{p.title|truncatechars:15}}</div>
+        <div class="index-content">{{p.content|truncatechars:22}}</div>
+        <div class="index-date">{{p.updated_at|date:'m월 d'}}</div>
+        <a id="{{p.id}}" class="stretched-link" onclick="post_read(this.id)"></a>
+    </div>
+</div>
+<hr width="95%">
+{%endfor%} 
+<script>
+        function post_read(id) {
+            $.ajax({
+                url: "{%url 'read'%}",
+                data: { 'post_id': id },
+                success: function (response) {
+                    $('#article').html(response);
+                }
+            })
+        }
+</script>
