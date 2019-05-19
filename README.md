@@ -5,4 +5,7 @@
 <code>source 가상환경폴더/scripts/activate</code>
 3. django 설치
 <code>pip install django</code>
-
+4. migrate
+<code>python manage.py migrate</code>
+5. server run
+<code>python manage.py runserver</code>
