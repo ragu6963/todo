@@ -13,6 +13,7 @@
             <i class="fas fa-calendar-plus"></i>
         </div>
         <section id="calendar">
+            <!-- calendar page -->
         </section>
         <div>
             <select name="priority" class="select-star">
@@ -30,15 +31,20 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
+    
     $('#calendar_plus_btn').click(function () {
         $.ajax({
             url: "{%url 'calendar'%}",
             success: function (response) {
                 $('#calendar_plus_btn').hide();
                 $('#calendar').html(response);
+                //마감날짜 설정 버튼 클릭 시 calendar section 활성화 및 설정 버튼 hide
             }
         })
     })
+
+    // 유효성 검사
+    // 제목 작성 유뮤 , 마감날짜 작성 유무
     $("#post_btn").click(function () {
         var check = true;
         if ($("#title").val() == "") {

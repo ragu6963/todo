@@ -2,6 +2,7 @@
     <div class="btn-wrap right">
         <button id="post_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="수정 완료">
             <i class="fas fa-check"></i>
+        </button>
     </div>
 </div>
 <hr width="95%">
@@ -10,11 +11,16 @@
         {%csrf_token%}
         <input type="hidden" name="post_id" value="{{post.id}}">
         {%if post.end_at == null%}
+        <!-- 현재 post의 마감날짜가 미설정 되어있을 때 -->
         <div id="calendar_plus_btn" class="calendar-btn"><i class="fas fa-calendar-plus"></i></div>
-        <section id="calendar"></section>
+        <section id="calendar">
+            <!-- calendar section -->
+        </section>
         {%else%}
+        <!-- 현재 post의 마감날짜가 설정 되어있을 때 -->
         <div id="calendar_plus_btn" class="calendar-btn" style="display:none"><i class="fas fa-calendar-plus"></i></div>
         <section id="calendar">
+            <!-- calendar section -->
             <div class="col-3" style="padding:0px;">
                 <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                     <div id="calendar_minus_btn" class="calendar-btn"><i class="fas fa-calendar-times"></i></div>
@@ -27,6 +33,7 @@
             </div>
         </section>
         {%endif%}
+        
         <div>
             <select name="priority" class="select-star">
                 {%if post.priority == 1%}
@@ -53,28 +60,37 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     }) 
+
+    // date form defalut 값 설정
     var date = "{{post.end_at|date:'Y-m-d'}}";
     $('#datetimepicker').datetimepicker({
         defaultDate: date,
         format: "YYYY-MM-DD",
     });
+    
     $('#calendar_minus_btn').click(function () {
         $.ajax({
             success: function (response) {
                 $('#calendar').html("");
                 $('#calendar_plus_btn').show();
+                //마감날짜 미설정 버튼 클릭 시 calendar section 삭제 및 설정 버튼 활성화 
             }
         })
     })
+
     $('#calendar_plus_btn').click(function () {
         $.ajax({
             url: "{%url 'calendar'%}",
             success: function (response) {
-                $('#calendar_plus_btn').hide();
                 $('#calendar').html(response);
+                $('#calendar_plus_btn').hide();
+                //마감날짜 설정 버튼 클릭 시 calendar section 활성화 및 설정 버튼 hide
             }
         })
     })
+
+    // 유효성 검사
+    // 제목 작성 유뮤 , 마감날짜 작성 유무
     $("#post_btn").click(function () {
         var check = true;
         if ($("#title").val() == "") {

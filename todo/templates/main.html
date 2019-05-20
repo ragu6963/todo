@@ -2,6 +2,7 @@
 {% block content %} 
 <section class="d-flex bd-highlight">
     <section class="bd-highlight" style="width:25%;border-right:1px solid;">
+        <!-- side 항목 -->
         <div class="menu-wrap"> 
             <span class="logo">Note</span>
             <div class="btn-wrap right">
@@ -27,12 +28,12 @@
         </div>
         <hr>
         <section id="index" class="aside-wrap">
-            <!-- index -->
+            <!-- index page-->
             {% include 'index.html' %}
         </section>
     </section>
     <section id="article" class="flex-grow-1 bd-highlight article-wrap">
-        <!-- read and create page-->
+        <!-- 본문(read and create page)-->
         {% include 'create.html' %}
     </section>
     </div>

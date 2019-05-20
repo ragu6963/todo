@@ -1,14 +1,17 @@
 <div class="nav-wrap">
     <div class="btn-wrap right">
         {%if post.confirm == True%}
+        <!-- 현재 post 완료 post일 때 -->
         <button id="confirm_btn" class="icon-btn" title="취소" data-toggle="tooltip" data-placement="bottom" title="되돌리기">
             <i class="fas fa-undo-alt"></i>
         </button>
         {%else%}
+        <!-- 현재 post 미완료 post일 때 -->
         <button id="confirm_btn" class="icon-btn" title="완료" data-toggle="tooltip" data-placement="bottom" title="완료">
             <i class="fas fa-redo"></i>
         </button>
         {%endif%}
+
         <button id="update_btn" class="icon-btn" data-toggle="tooltip" data-placement="bottom" title="수정">
             <i class="fas fa-pencil-alt"></i>
         </button>
@@ -31,6 +34,7 @@
     <select class="select-star" disabled>
         <option class="option-star">
             {%for i in post.priority_range %}&#x2605;{%endfor%}
+            <!-- 우선순위의 크기만큼 별 icon 출력 -->
         </option>
     </select>
     <input type="text" class="title" value="{{post.title}}" readonly>
@@ -40,10 +44,12 @@
 </div>
 
 <form id="delete_form" action="{%url 'delete' %}" method="POST">
+    <!-- 삭제 버튼 클릭 시 submit form -->
     {%csrf_token%}
     <input type="hidden" name="post_id" value="{{post.id}}">
 </form>
 <form id="confirm_form" action="{%url 'confirm' %}" method="POST">
+    <!-- 완료 버튼 클릭 시 submit form -->
     {%csrf_token%}
     <input type="hidden" name="post_id" value="{{post.id}}">
 </form>
@@ -52,6 +58,7 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
+
     $('#update_btn').click(function () {
         $.ajax({
             url: "{%url 'update'%}",
@@ -62,12 +69,14 @@
             }
         })
     })
+
     $("#delete_btn").click(function () {
         var result = confirm("정말 삭제하시겠습니까?")
         if (result) { 
             $("#delete_form").submit();
         }
     })
+    
     $('#confirm_btn').click(function () {
         $("#confirm_form").submit();
     })
