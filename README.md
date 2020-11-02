@@ -4,7 +4,7 @@
 2. 가상환경 켜기<br>
 <code>source 가상환경폴더/scripts/activate</code>
 3. django 설치<br>
-<code>pip install django</code>
+<code>pip install django==2</code>
 4. git clone<br>
 <code>git clone https://github.com/ragu6963/todo.git </code>
 5. migrate<br>
